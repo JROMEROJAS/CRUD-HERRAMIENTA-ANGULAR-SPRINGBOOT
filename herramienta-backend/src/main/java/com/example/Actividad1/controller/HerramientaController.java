@@ -23,27 +23,27 @@ import com.example.Actividad1.repository.HerramientaRepository;
 public class HerramientaController {
     
     @Autowired
-    private HerramientaRepository HerramientaRepository;
+    private HerramientaRepository herramientaRepository;
 
     @GetMapping
     public List<Herramienta> getAllHerramientas() {
-        return HerramientaRepository.findAll();
+        return herramientaRepository.findAll();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Herramienta> getHerramientaById(@PathVariable Long id) {
-        Optional<Herramienta> herramienta = HerramientaRepository.findById(id);
+        Optional<Herramienta> herramienta = herramientaRepository.findById(id);
         return herramienta.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
     public Herramienta createHerramienta(@RequestBody Herramienta herramienta){
-        return HerramientaRepository.save(herramienta);
+        return herramientaRepository.save(herramienta);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Herramienta> updateHerramienta(@PathVariable Long id, @RequestBody Herramienta herramientaDetails){
-        Optional<Herramienta> optionalHerramienta = HerramientaRepository.findById(id);
+        Optional<Herramienta> optionalHerramienta = herramientaRepository.findById(id);
         if (optionalHerramienta.isEmpty()){
             return ResponseEntity.notFound().build();
         }   
@@ -54,18 +54,18 @@ public class HerramientaController {
         herramienta.setTipo(herramientaDetails.getTipo());
         herramienta.setPrecio(herramientaDetails.getPrecio());
 
-        Herramienta updatedHerramienta = HerramientaRepository.save(herramienta);
+        Herramienta updatedHerramienta = herramientaRepository.save(herramienta);
         return ResponseEntity.ok(updatedHerramienta);
 
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteHerramienta(@PathVariable Long id){
-        if (!HerramientaRepository.existsById(id)) {
+        if (!herramientaRepository.existsById(id)) {
             return ResponseEntity.notFound().build();
         }
 
-        HerramientaRepository.deleteById(id);
+        herramientaRepository.deleteById(id);
         return ResponseEntity.noContent().build();    
     } 
 }
