@@ -1,0 +1,90 @@
+<!-- Contenedor principal para el componente -->
+<div class="container mt-4">
+
+    <!-- Mensaje de estado (éxito, error, cargando) -->
+    <div 
+    *ngIf="message" class="alert alert-info" role="alert">
+    {{ message }}
+    </div>
+
+    <!-- Si NO hay una herramienta cargada (id es nulo), mostramos un mensaje de espera -->
+    <div *ngIf="!currentHerramienta.id">
+    <p class="text-secondary">Por favor, selecciona una herramienta de la lista para ver sus detalles.</p>
+    </div>
+
+    <!-- Si SÍ hay una herramienta cargada, mostramos los detalles o el formulario de edición -->
+  <div *ngIf="currentHerramienta.id">
+    <div *ngIf="viewMode">
+        <h4 class="mb-3">Detalles de la Herramienta</h4>
+
+        <div class="card p-3 mb-3">
+        <div class="mb-2">
+            <label class="font-weight-bold">Nombre:</label> {{ currentHerramienta.nombre }}
+        </div>
+        <div class="mb-2">
+            <label class="font-weight-bold">Descripción:</label> {{ currentHerramienta.descripcion }}
+        </div>
+        <div class="mb-2">
+            <label class="font-weight-bold">Tipo:</label> {{ currentHerramienta.tipo }}
+        </div>
+        <div class="mb-2">
+            <label class="font-weight-bold">Precio:</label> {{ currentHerramienta.precio | currency:'USD':'symbol':'1.2-2' }} 
+        </div>
+    </div>
+
+    <!-- Botones en Modo Vista -->
+    <button class="btn btn-primary mr-2" (click)="editMode()">
+        Editar
+    </button>
+    <button class="btn btn-danger mr-2" (click)="deleteHerramienta()">
+        Eliminar
+    </button>
+    <a routerLink="/herramientas" class="btn btn-secondary">
+        Volver al Listado
+    </a>
+    </div>
+
+
+    <!-- ---------------------------------------------------- -->
+    <!-- MODO EDICIÓN (viewMode es false) -->
+    <!-- ---------------------------------------------------- -->
+    <div *ngIf="!viewMode">
+        <h4 class="mb-4">Editar Herramienta</h4>
+        <form>
+        <div class="form-group mb-3">
+            <label for="nombre">Nombre</label>
+            <input type="text" class="form-control" id="nombre"
+            [(ngModel)]="currentHerramienta.nombre" name="nombre" />
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="descripcion">Descripción</label>
+            <input type="text" class="form-control" id="descripcion"
+            [(ngModel)]="currentHerramienta.descripcion" name="descripcion" />
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="tipo">Tipo</label>
+            <input type="text" class="form-control" id="tipo"
+            [(ngModel)]="currentHerramienta.tipo" name="tipo" />
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="precio">Precio</label>
+            <input type="number" step="0.01" class="form-control" id="precio"
+            [(ngModel)]="currentHerramienta.precio" name="precio" />
+        </div>
+        </form>
+
+    <!-- Botones en Modo Edición -->
+        <button type="submit" class="btn btn-success mr-2" (click)="updateHerramienta()">
+        Guardar Cambios
+        </button>
+        <button class="btn btn-secondary" (click)="viewMode = true">
+        Cancelar
+        </button>
+    
+    </div>
+    </div>
+
+</div>
