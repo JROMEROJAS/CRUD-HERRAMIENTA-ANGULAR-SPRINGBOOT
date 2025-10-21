@@ -5,89 +5,98 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Herramienta } from '../../models/herramienta';
 import { HerramientaService } from '../../services/herramienta';
 
+
 @Component({
   selector: 'app-herramienta-details',
   standalone: true,
-  imports: [CommonModule,FormsModule, RouterLink],
+  imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './herramienta-details.html',
-  styleUrl: './herramienta-details.css'
+  styleUrls: ['./herramienta-details.css']
 })
 export class HerramientaDetailsComponent implements OnInit {
 
-  //Inyeccion de dependencias.
+  // Inyección de dependencias
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private herramientaService = inject(HerramientaService);
 
-  //Propiedades 
+  // Propiedades
   currentHerramienta: Herramienta = {
-    nombre:'',
-    descripcion:'',
-    tipo:'',
-    precio:0
+    nombre: '',
+    descripcion: '',
+    tipo: '',
+    precio: 0
   };
-  message = '';
-  viewMode = true; //Controla si muestra el modo vista o el modo edicion.
+
+  message: string = '';
+  viewMode: boolean = true; // Controla si se muestra modo vista o edición
 
   ngOnInit(): void {
-    //Inicializa el modo vista y limpia el mensaje de carga.
     this.message = '';
     this.viewMode = true;
-
-    //Obtiene el ID de la URL y carga los datos.
-    this.getHerramienta(this.route.snapshot.params['id']);
+    const id = this.route.snapshot.params['id'];
+    this.getHerramienta(id);
   }
 
-  //Carga los datos de las herramientas usando el ID de la URL.
-  //@param id - el ID de la herramienta a cargar.
-
-  getHerramienta(id: String): void {
+  // Carga la herramienta según el ID recibido por la URL
+  getHerramienta(id: string): void {
     this.herramientaService.get(Number(id)).subscribe({
-      next: (data) => {
+      next: (data: Herramienta) => {
         this.currentHerramienta = data;
-        console.log(data);
+        console.log('Herramienta cargada:', data);
       },
-      error: (e) => {
-        console.error('Error al cargar la herramienta: ', e);
-        this.message = 'Error: Herramienta no encontrada o error de conexion.';
+      error: (e: any) => {
+        console.error('Error al cargar la herramienta:', e);
+        this.message = 'Error: Herramienta no encontrada o error de conexión.';
       }
     });
   }
 
-  //Cambia al modo de edicion.
-  editMode() : void {
+  // Cambia a modo edición
+  editMode(): void {
     this.viewMode = false;
   }
 
-  //Llama al servicio para actualizar la herramienta.
+  // Actualiza la herramienta
   updateHerramienta(): void {
     this.message = 'Actualizando...';
-  }
 
-  //El ID se obtiene del objeto cargando.
-  if (!this.currentHerramienta.id) {
-    this.message = 'Error: ID de herramienta faltante.';
-    return;
-  }
-
-  this.herramientaService.update(this.currentHerramienta.id, this.currentHerramienta).subscribe({
-    next: (res) => {
-      console.log(res);
-      this.message = 'La herramienta fue actualizada exitosamente!';
-      this.viewMode = true; //Vuelve al modo vista despues de actualizar.
-    },
-    error: (e) => {
-      console.error('Error al actualizar: ', e);
-      this.message = 'Error al actualizar la herramienta.';
+    if (!this.currentHerramienta.id) {
+      this.message = 'Error: ID de herramienta faltante.';
+      return;
     }
-  });
 
-  //Llama al servicio para eliminar la herramienta y redirige a la lista.
+    this.herramientaService.update(this.currentHerramienta.id, this.currentHerramienta).subscribe({
+      next: (res: Herramienta) => {
+        console.log(res);
+        this.message = 'La herramienta fue actualizada exitosamente!';
+        this.viewMode = true; // Vuelve al modo vista
+      },
+      error: (e: any) => {
+        console.error('Error al actualizar:', e);
+        this.message = 'Error al actualizar la herramienta.';
+      }
+    });
+  }
+
+  // Elimina la herramienta y redirige al listado
   deleteHerramienta(): void {
-    if(confirm('Estas seguro de que deseas eliminar la herramienta: ${this.currentHerramienta.nombre}?')) {
-      console.error('No se puede eliminar: ID de herramienta faltante.');
+    if (!this.currentHerramienta.id) {
       this.message = 'Error al eliminar: ID faltante.';
+      return;
+    }
+
+    if (confirm(`¿Estás seguro de que deseas eliminar la herramienta: ${this.currentHerramienta.nombre}?`)) {
+      this.herramientaService.delete(this.currentHerramienta.id).subscribe({
+        next: () => {
+          this.message = 'Herramienta eliminada correctamente.';
+          this.router.navigate(['/herramientas']);
+        },
+        error: (e: any) => {
+          console.error('Error al eliminar:', e);
+          this.message = 'Error al eliminar la herramienta.';
+        }
+      });
     }
   }
-
 }
