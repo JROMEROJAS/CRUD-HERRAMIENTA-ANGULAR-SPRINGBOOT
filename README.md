@@ -1,87 +1,59 @@
-🛠️ Proyecto CRUD de Gestión de Herramientas 🛠️
+# ⚙️ CRUD de Herramientas
 
-Este repositorio contiene una aplicación completa de tipo CRUD (Crear, Leer, Actualizar, Eliminar) diseñada para la gestión de un catálogo de herramientas. La arquitectura se implementó utilizando una separación clara entre el Frontend y el Backend (arquitectura de microservicios).
+Este proyecto fue desarrollado como parte de la asignatura **Desarrollo de Software**, con el objetivo de crear una aplicación completa tipo **CRUD (Crear, Leer, Actualizar y Eliminar)** para la gestión de un catálogo de herramientas.
 
-🚀 Tecnologías Utilizadas
+La aplicación sigue una arquitectura dividida en **Frontend**, **Backend** y **Base de Datos**, utilizando tecnologías modernas como **Angular**, **Spring Boot** y **MySQL**.
 
-Backend (API REST con Spring Boot)
+---
 
-Framework: Spring Boot 3+ (Java)
+## 🚀 Tecnologías Utilizadas
 
-Persistencia: Spring Data JPA
+### 🔹 Backend
+- **Lenguaje:** Java  
+- **Framework:** Spring Boot 3+  
+- **Dependencias:** Spring Web, Spring Data JPA, MySQL Driver  
+- **Persistencia:** JPA (Java Persistence API)  
+- **Base de datos:** MySQL  
+- **IDE utilizado:** Visual Studio Code 
 
-Base de Datos: MySQL
+### 🔹 Frontend
+- **Framework:** Angular  
+- **Lenguaje:** TypeScript  
+- **Estilos:** HTML + CSS  
+- **IDE utilizado:** Visual Studio Code  
 
-CORS: Habilitado para comunicación con Angular (puerto 4200)
+### 🔹 Base de Datos
+- **Gestor:** MySQL  
+- **Herramienta visual:** MySQL Workbench  
+- **Entidad principal:** `Herramienta`  
+  - Atributos básicos: `id`, `nombre`, `marca`, `cantidad`, `estado`
 
-Frontend (Aplicación Web con Angular)
+---
 
-Framework: Angular 16+ (Utilizando Componentes Standalone)
+## 🧩 Arquitectura del Proyecto
 
-Módulos clave: HttpClient (para la comunicación con el Backend), Router (para la navegación) y FormsModule (para la gestión de formularios con ngModel).
+El sistema está dividido en tres capas principales:
 
-Estilos: Bootstrap (para un diseño limpio y responsive).
+1. **Frontend (Angular):** interfaz gráfica que permite al usuario realizar las operaciones CRUD.
+2. **Backend (Spring Boot):** API REST encargada de procesar las peticiones y comunicarse con la base de datos.
+3. **Base de Datos (MySQL):** almacena los registros de las herramientas.
 
-⚙️ Estructura del Proyecto
+---
 
-El proyecto está organizado en dos subdirectorios principales que deben ejecutarse de forma independiente:
+## 🧠 Funcionalidades Principales
+- Registrar nuevas herramientas.
+- Listar todas las herramientas almacenadas.
+- Editar los datos de una herramienta existente.
+- Eliminar herramientas del registro.
+- Conexion en tiempo real entre frontend y backend mediante una API REST.
 
-herramienta-backend: Contiene todo el código fuente de la API REST de Java, incluyendo la entidad Herramienta, el repositorio JPA y el HerramientaController con los endpoints REST.
+---
+# 👨‍💻 Autor
+- **Nombre:** Juan Jose Romero Rojas
+- **Programa:** Tecnologia en Desarrollo de Software
+- **Semestre:** 4 (cuarto)
+- **Institucion:** Fundacion Universitaria Tecnologico Comfenalco
 
-herramienta-frontend: Contiene la aplicación web de Angular con los componentes necesarios para el CRUD:
-
-herramienta-list (Lectura de todas las herramientas)
-
-herramienta-form (Creación de nuevas herramientas)
-
-herramienta-details (Detalles, Actualización y Eliminación)
-
-🛠️ Instrucciones de Configuración y Ejecución
-
-Para iniciar el proyecto, debes configurar y ejecutar tanto el Backend como el Frontend.
-
-1. Configuración de la Base de Datos (MySQL)
-
-Asegúrate de que el servicio de MySQL esté activo.
-
-Crea una base de datos con el nombre: herramientas_db.
-
-IMPORTANTE: Edita el archivo de configuración del Backend:
-herramienta-backend/src/main/resources/application.properties
-
-Ajusta las credenciales de conexión:
-
-spring.datasource.url=jdbc:mysql://localhost:3306/herramientas_db
-spring.datasource.username=tu_usuario_mysql 
-spring.datasource.password=tu_contraseña_mysql
-spring.jpa.hibernate.ddl-auto=update 
-
-
-2. Ejecutar el Backend (Spring Boot)
-
-Navega a la carpeta herramienta-backend.
-
-Ejecuta la aplicación desde tu IDE (IntelliJ, VS Code, etc.) o usando tu herramienta de construcción:
-
-# Ejemplo usando Maven Wrapper
-./mvnw spring-boot:run 
-# O simplemente ejecuta la clase principal desde tu IDE.
-
-
-La API estará disponible en: http://localhost:8080/api/herramientas
-
-3. Ejecutar el Frontend (Angular)
-
-Navega a la carpeta herramienta-frontend.
-
-Instala las dependencias de Node (solo la primera vez):
-
-npm install
-
-
-Inicia la aplicación en modo desarrollo:
-
-ng serve --open
-
-
-La aplicación abrirá en su navegador en: http://localhost:4200
+---
+# 📝 Licencia
+Este proyecto fue desarrollado con fines academicos y puede ser utilizado como referencia para el aprendizaje de **Spring boot**, **Angular** y **MySQL**.
