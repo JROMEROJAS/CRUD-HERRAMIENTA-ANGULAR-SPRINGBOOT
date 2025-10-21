@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { HerramientaList } from './herramienta-list';
+import { HerramientaListComponent } from './herramienta-list';
 
 describe('HerramientaList', () => {
-  let component: HerramientaList;
-  let fixture: ComponentFixture<HerramientaList>;
+  let component: HerramientaListComponent;
+  let fixture: ComponentFixture<HerramientaListComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HerramientaList]
+      imports: [HerramientaListComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(HerramientaList);
+    fixture = TestBed.createComponent(HerramientaListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

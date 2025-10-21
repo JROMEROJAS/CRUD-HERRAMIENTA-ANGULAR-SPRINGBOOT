@@ -1,1 +1,35 @@
-<p>herramienta-list works!</p>
+<div class="container mt-4">
+    <h2 class="mb-3">Listado de Herramientas</h2>
+
+  <div *ngIf="message" class="alert alert-info">{{ message }}</div>
+
+    <a routerLink="/agregar" class="btn btn-success mb-3">➕ Agregar Herramienta</a>
+
+    <table class="table table-bordered table-striped">
+    <thead class="thead-dark">
+        <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Tipo</th>
+        <th>Precio</th>
+        <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let herramienta of herramientas">
+        <td>{{ herramienta.id }}</td>
+        <td>{{ herramienta.nombre }}</td>
+        <td>{{ herramienta.tipo }}</td>
+        <td>{{ herramienta.precio | currency:'USD':'symbol':'1.2-2' }}</td>
+        <td>
+            <a [routerLink]="['/herramientas', herramienta.id]" class="btn btn-primary btn-sm mr-2">Ver</a>
+            <button (click)="eliminarHerramientas(herramienta.id!)" class="btn btn-danger btn-sm">Eliminar</button>
+        </td>
+        </tr>
+    </tbody>
+    </table>
+
+  <div *ngIf="!herramientas.length" class="text-secondary">
+    No hay herramientas registradas.
+    </div>
+</div>

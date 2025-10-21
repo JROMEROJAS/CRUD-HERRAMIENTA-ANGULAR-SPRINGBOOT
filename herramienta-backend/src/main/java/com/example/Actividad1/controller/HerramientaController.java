@@ -19,7 +19,7 @@ import com.example.Actividad1.repository.HerramientaRepository;
 
 @RestController
 @RequestMapping("/api/herramientas")
-@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin(origins = "http://localhost:4200")
 public class HerramientaController {
     
     @Autowired

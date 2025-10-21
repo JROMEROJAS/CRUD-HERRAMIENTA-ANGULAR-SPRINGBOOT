@@ -1,0 +1,12 @@
+table {
+    background-color: #fff;
+}
+
+th {
+    background-color: #343a40;
+    color: white;
+}
+
+.btn {
+    margin-right: 5px;
+}
